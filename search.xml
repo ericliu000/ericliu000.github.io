@@ -1,3 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
+  <entry>
+    <title>Hello World</title>
+    <url>/2020/05/03/Hello-World/</url>
+    <content><![CDATA[<h1 id="Hello-World"><a href="#Hello-World" class="headerlink" title="Hello World"></a>Hello World</h1><p>我是一个程序员，但我也不是一个程序员，我喜欢左手代码右手诗。</p>
+<p>很高兴初次与你相见.</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">  <span class="keyword">echo</span> <span class="string">"Hello,world!"</span>;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>闲聊</category>
+      </categories>
+  </entry>
 </search>
