@@ -1,15 +1,3 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
-  <entry>
-    <title>Hello-World</title>
-    <url>/2020/05/03/Hello-World/</url>
-    <content><![CDATA[<h1 id="Hi-world"><a href="#Hi-world" class="headerlink" title="Hi,world!"></a>Hi,world!</h1><p>费了半天功夫，终于搭建完了博客。博客基于github+hexo，不用担心主机问题了。</p>
-<p>也没想好叫什么名字，我媳妇突然说：“子路说”。哈哈，觉得挺有诗意，也比较简约，索性就叫这个名字吧。</p>
-<h1 id="左手代码右手诗"><a href="#左手代码右手诗" class="headerlink" title="左手代码右手诗"></a>左手代码右手诗</h1><p>我觉得我是个不安分的程序员，主要是觉得人不能给自己设限，左手代码右手诗。所以</p>
-<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">  <span class="keyword">echo</span> <span class="string">"Hello，World"</span>;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>闲聊</category>
-      </categories>
-  </entry>
 </search>
