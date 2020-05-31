@@ -1,0 +1,1102 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="一. 数组(Array)定义数组数组的定义不用多说，就是类型相同的数据的集合。GO中的数组比较特殊，纵使都是int类型数据，但如果长度不同的话，类型也不同。如：d1与d2就是不同类型的数据 12345var d1 [3]intvar d2 [4]int&#x2F;&#x2F;会报错d1&#x3D;&#x3D;d2 初始化数组确定数组容量 1234func main() &amp;#123;    &#x2F;&#x2F;数字在签名，3个int	a:&#x3D; [3]int">
+<meta property="og:type" content="article">
+<meta property="og:title" content="四. Golang中的内建容器">
+<meta property="og:url" content="https://hizilu.com/2020/05/31/golang_datatypes/index.html">
+<meta property="og:site_name" content="子路说">
+<meta property="og:description" content="一. 数组(Array)定义数组数组的定义不用多说，就是类型相同的数据的集合。GO中的数组比较特殊，纵使都是int类型数据，但如果长度不同的话，类型也不同。如：d1与d2就是不同类型的数据 12345var d1 [3]intvar d2 [4]int&#x2F;&#x2F;会报错d1&#x3D;&#x3D;d2 初始化数组确定数组容量 1234func main() &amp;#123;    &#x2F;&#x2F;数字在签名，3个int	a:&#x3D; [3]int">
+<meta property="og:image" content="http://static.zybuluo.com/ericliu001/2a3jqlbfvhpi8ixh2bglq2ej/image_1e9kdpdhg1nj06r8suu117dkh49.png">
+<meta property="og:image" content="http://static.zybuluo.com/ericliu001/lp6a5xxhdpldx16jlm674s6i/image_1e9ke4unld651juorajaq51mh7m.png">
+<meta property="article:published_time" content="2020-05-31T09:51:25.000Z">
+<meta property="article:modified_time" content="2020-05-31T09:52:21.300Z">
+<meta property="article:author" content="zilu">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://static.zybuluo.com/ericliu001/2a3jqlbfvhpi8ixh2bglq2ej/image_1e9kdpdhg1nj06r8suu117dkh49.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"remove","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://hizilu.com/2020/05/31/golang_datatypes/"/>
+
+
+
+
+
+  <title>四. Golang中的内建容器 | 子路说</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-165378706-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">子路说</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Keep Real,Stay Real</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hizilu.com/2020/05/31/golang_datatypes/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zilu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="子路说">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">四. Golang中的内建容器</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-31T17:51:25+08:00">
+                2020-05-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Golang-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index">
+                    <span itemprop="name">Golang 学习笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="一-数组-Array"><a href="#一-数组-Array" class="headerlink" title="一. 数组(Array)"></a>一. 数组(Array)</h2><p><strong>定义数组</strong><br>数组的定义不用多说，就是类型相同的数据的集合。<br>GO中的数组比较特殊，纵使都是int类型数据，但如果长度不同的话，类型也不同。<br>如：<code>d1</code>与<code>d2</code>就是不同类型的数据</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> d1 [<span class="number">3</span>]<span class="keyword">int</span></span><br><span class="line"><span class="keyword">var</span> d2 [<span class="number">4</span>]<span class="keyword">int</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//会报错</span></span><br><span class="line">d1==d2</span><br></pre></td></tr></table></figure>
+<p><strong>初始化数组</strong><br>确定数组容量</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="comment">//数字在签名，3个int</span></span><br><span class="line">	a:= [<span class="number">3</span>]<span class="keyword">int</span>&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>由编译器推断数组容量</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	b:= [...]<span class="keyword">int</span>&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>定义多维数组<br>对于”…”的使用，只能用在第一维度</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	b:= [...][<span class="number">2</span>]<span class="keyword">int</span>&#123;&#123;<span class="number">1</span>,<span class="number">2</span>&#125;,&#123;<span class="number">3</span>,<span class="number">4</span>&#125;,&#123;<span class="number">5</span>,<span class="number">6</span>&#125;&#125;</span><br><span class="line">	<span class="comment">//输出了3行2列的数组</span></span><br><span class="line">	fmt.Println(b)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>len()、cap()<br>对于这两个函数，多维数组的话都是返回一维数组的值</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	b:= [...][<span class="number">2</span>]<span class="keyword">int</span>&#123;&#123;<span class="number">1</span>,<span class="number">2</span>&#125;,&#123;<span class="number">3</span>,<span class="number">4</span>&#125;,&#123;<span class="number">5</span>,<span class="number">6</span>&#125;&#125;</span><br><span class="line">	<span class="comment">//输出 3 3</span></span><br><span class="line">	fmt.Println(<span class="built_in">len</span>(b),<span class="built_in">cap</span>(b))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>数组相等判断</strong></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	a:=[<span class="number">2</span>]<span class="keyword">int</span>&#123;<span class="number">1</span>,<span class="number">2</span>&#125;</span><br><span class="line">	b:=[<span class="number">2</span>]<span class="keyword">int</span>&#123;<span class="number">1</span>,<span class="number">2</span>&#125;</span><br><span class="line">	<span class="comment">//true</span></span><br><span class="line">	<span class="built_in">println</span>(a==b)</span><br><span class="line"></span><br><span class="line">	c:=[<span class="number">2</span>]<span class="keyword">int</span>&#123;<span class="number">1</span>,<span class="number">3</span>&#125;</span><br><span class="line">	d:=[<span class="number">2</span>]<span class="keyword">int</span>&#123;<span class="number">1</span>,<span class="number">2</span>&#125;</span><br><span class="line">	<span class="comment">//false</span></span><br><span class="line">	<span class="built_in">println</span>(c==d)</span><br><span class="line"></span><br><span class="line">	m:=[<span class="number">3</span>]<span class="keyword">int</span>&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;</span><br><span class="line">	n:=[<span class="number">2</span>]<span class="keyword">int</span>&#123;<span class="number">1</span>,<span class="number">2</span>&#125;</span><br><span class="line">	<span class="comment">//报错，长度不同，不同类型不能比较</span></span><br><span class="line">	<span class="built_in">println</span>(m==n)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>数组指针</strong><br>数组指针可以获取整个数组的起始地址以及任意数据元素的起始地址。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	a:=[<span class="number">2</span>]<span class="keyword">int</span>&#123;<span class="number">1</span>,<span class="number">2</span>&#125;</span><br><span class="line">	<span class="comment">//0xc00002e768 0xc00002e768 0xc00002e770</span></span><br><span class="line">	<span class="built_in">println</span>(&amp;a,&amp;a[<span class="number">0</span>],&amp;a[<span class="number">1</span>])</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>同时也可以使用数组指针来直接操作元素</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	a:=[<span class="number">2</span>]<span class="keyword">int</span>&#123;<span class="number">1</span>,<span class="number">2</span>&#125;</span><br><span class="line">	p:=&amp;a</span><br><span class="line">	p[<span class="number">1</span>]+=<span class="number">10</span></span><br><span class="line">	<span class="comment">//输出12</span></span><br><span class="line">	<span class="built_in">println</span>(p[<span class="number">1</span>])</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>遍历</strong><br>使用for循环遍历</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>  &#123;</span><br><span class="line">	arr3:=[...]<span class="keyword">int</span>&#123;<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> i:=<span class="number">0</span>;i&lt;<span class="built_in">len</span>(arr3);i++ &#123;</span><br><span class="line">		fmt.Println(arr3[i])</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用range遍历</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>  &#123;</span><br><span class="line">	arr3:=[...]<span class="keyword">int</span>&#123;<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//i，v都需要</span></span><br><span class="line">	<span class="keyword">for</span> i,v:=<span class="keyword">range</span> arr3&#123;</span><br><span class="line">		fmt.Println(i,v)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//仅需要v</span></span><br><span class="line">	<span class="keyword">for</span> _,v:=<span class="keyword">range</span> arr3&#123;</span><br><span class="line">		fmt.Println(v)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//仅需要i</span></span><br><span class="line">	<span class="keyword">for</span> i:=<span class="keyword">range</span> arr3&#123;</span><br><span class="line">		fmt.Println(i)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>复制</strong><br>数组是值类型，<em>传参</em> 与 <em>赋值</em> 都会进行拷贝，这样比较消耗性能。<br>可以改为指针或切片。</p>
+<p>为值传递，纵使<code>changeArray()</code>修改了元素值，但<code>arr</code>在<code>main()</code>中还是没变。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>  &#123;</span><br><span class="line">	arr:=[<span class="number">5</span>]<span class="keyword">int</span>&#123;<span class="number">2</span>,<span class="number">4</span>,<span class="number">6</span>,<span class="number">8</span>,<span class="number">10</span>&#125;</span><br><span class="line">	printArray(arr)</span><br><span class="line">	<span class="comment">//[2,4,6,8,10]</span></span><br><span class="line">	fmt.Println(arr)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">changeArray</span><span class="params">(arr [5]<span class="keyword">int</span>)</span></span>  &#123;</span><br><span class="line">	arr[<span class="number">0</span>]=<span class="number">100</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>改为指针，这样<code>arr</code>在<code>main()</code>中元素就变了</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>  &#123;</span><br><span class="line">	arr:=[<span class="number">5</span>]<span class="keyword">int</span>&#123;<span class="number">2</span>,<span class="number">4</span>,<span class="number">6</span>,<span class="number">8</span>,<span class="number">10</span>&#125;</span><br><span class="line">	printArray(&amp;arr)</span><br><span class="line">	<span class="comment">//[100 4 6 8 10]</span></span><br><span class="line">	fmt.Println(arr)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">printArray</span><span class="params">(arr *[5]<span class="keyword">int</span>)</span></span>  &#123;</span><br><span class="line">	arr[<span class="number">0</span>]=<span class="number">100</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面讲了这么多数组，但go中一般不直接使用数组，使用最多的是切片。</p>
+<h2 id="二-切片-Slice"><a href="#二-切片-Slice" class="headerlink" title="二. 切片(Slice)"></a>二. 切片(Slice)</h2><p><strong>Array转换为Slice</strong><br>如下代码，Array转换为Slice时，区间是左闭右开的。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	arr := [...]<span class="keyword">int</span>&#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//[2 3 4 5]</span></span><br><span class="line">	fmt.Println(<span class="string">"arr[2:6] = "</span>, arr[<span class="number">2</span>:<span class="number">6</span>])</span><br><span class="line">	<span class="comment">//[0 1 2 3 4 5]</span></span><br><span class="line">	fmt.Println(<span class="string">"arr[:6] = "</span>, arr[:<span class="number">6</span>])</span><br><span class="line">	<span class="comment">//[2 3 4 5 6 7]</span></span><br><span class="line">	fmt.Println(<span class="string">"arr[2:] = "</span>, arr[<span class="number">2</span>:])</span><br><span class="line">	<span class="comment">//[0 1 2 3 4 5 6 7]</span></span><br><span class="line">	fmt.Println(<span class="string">"arr[:] = "</span>, arr[:])</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>官方定义中:slice本身没有数据，是对底层array的一个view(视图)</p>
+</blockquote>
+<p>如下代码我们看到，slice的改变会影响到array(因为slice是array的一个视图)</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	arr := [...]<span class="keyword">int</span>&#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>&#125;</span><br><span class="line"></span><br><span class="line">	s1 := arr[<span class="number">2</span>:]</span><br><span class="line">	<span class="comment">// s1 =  [2 3 4 5 6 7]</span></span><br><span class="line">	fmt.Println(<span class="string">"s1 = "</span>, s1)</span><br><span class="line">	s2 := arr[:]</span><br><span class="line">	<span class="comment">//s2 =  [0 1 2 3 4 5 6 7]</span></span><br><span class="line">	fmt.Println(<span class="string">"s2 = "</span>, s2)</span><br><span class="line"></span><br><span class="line">	updateSlice(s1)</span><br><span class="line">	fmt.Println(<span class="string">"After updateSlice(s1)"</span>)</span><br><span class="line">	<span class="comment">//s1 =  [100 3 4 5 6 7]</span></span><br><span class="line">	fmt.Println(<span class="string">"s1 = "</span>, s1)</span><br><span class="line">	<span class="comment">//arr =  [0 1 100 3 4 5 6 7]</span></span><br><span class="line">	fmt.Println(<span class="string">"arr = "</span>, arr)</span><br><span class="line"></span><br><span class="line">	updateSlice(s2)</span><br><span class="line">	fmt.Println(<span class="string">"After updateSlice(s2)"</span>)</span><br><span class="line">	<span class="comment">//s2 =  [100 1 100 3 4 5 6 7]</span></span><br><span class="line">	fmt.Println(<span class="string">"s2 = "</span>, s2)</span><br><span class="line">	<span class="comment">//arr =  [100 1 100 3 4 5 6 7]</span></span><br><span class="line">	fmt.Println(<span class="string">"arr = "</span>, arr)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">updateSlice</span><span class="params">(s []<span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">	s[<span class="number">0</span>] = <span class="number">100</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>Reslice</strong><br>slice可以在slice本身上再slice，也就是reslice</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	arr := [...]<span class="keyword">int</span>&#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>&#125;</span><br><span class="line">	s2 := arr[:]</span><br><span class="line"></span><br><span class="line">	<span class="comment">//[0 1 2 3 4 5 6 7]</span></span><br><span class="line">	fmt.Println(s2)</span><br><span class="line"></span><br><span class="line">	s2 = s2[:<span class="number">5</span>]</span><br><span class="line">	<span class="comment">//[0 1 2 3 4]</span></span><br><span class="line">	fmt.Println(s2)</span><br><span class="line"></span><br><span class="line">	s2 = s2[<span class="number">2</span>:]</span><br><span class="line">	<span class="comment">//[2 3 4]</span></span><br><span class="line">	fmt.Println(s2)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>slice的扩展</strong><br>我们看到s1的index从0-3，值为s1=[2,3,4,5]，但s2却为s1的index从3-4，明显超出了s1的index范围，所以s2是s1的扩展。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	arr := [...]<span class="keyword">int</span>&#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>&#125;</span><br><span class="line">	s1 := arr[<span class="number">2</span>:<span class="number">6</span>]</span><br><span class="line">	s2 := s1[<span class="number">3</span>:<span class="number">5</span>]</span><br><span class="line"></span><br><span class="line">	<span class="comment">// [2 3 4 5]</span></span><br><span class="line">	fmt.Println(s1)</span><br><span class="line">	<span class="comment">// [5 6]</span></span><br><span class="line">	fmt.Println(s2)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>s2也能够正常取值，但直接取s1[4]会报错，因为s1是对array的view，很明显这个view是越界的，所以会报错。<br><img src="http://static.zybuluo.com/ericliu001/2a3jqlbfvhpi8ixh2bglq2ej/image_1e9kdpdhg1nj06r8suu117dkh49.png" alt="image_1e9kdpdhg1nj06r8suu117dkh49.png-117.3kB"></p>
+<p><strong>slice的实现</strong><br>slice底层数据结构包含3部分</p>
+<ol>
+<li>ptr，指向开始元素的地址</li>
+<li>len，view的长度</li>
+<li>cap，从ptr开始到array结束的长度</li>
+</ol>
+<p><img src="http://static.zybuluo.com/ericliu001/lp6a5xxhdpldx16jlm674s6i/image_1e9ke4unld651juorajaq51mh7m.png" alt="image_1e9ke4unld651juorajaq51mh7m.png-70.2kB"></p>
+<p>结合上面的slice扩展，我们得出结论：</p>
+<ul>
+<li>slice可以向后扩展，不可以向前扩展</li>
+<li>s[i]不可以超越len(s)，向后扩展不可以超越底层数组cap(s)</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	arr := [...]<span class="keyword">int</span>&#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>&#125;</span><br><span class="line">	s1 := arr[<span class="number">2</span>:<span class="number">6</span>]</span><br><span class="line">	s2 := s1[<span class="number">3</span>:<span class="number">5</span>]</span><br><span class="line"></span><br><span class="line">	<span class="comment">//s1=[2 3 4 5], len(s1)=4 ,cap(s1)=6</span></span><br><span class="line">	fmt.Printf(<span class="string">"s1=%v, len(s1)=%d ,cap(s1)=%d\n"</span>, s1, <span class="built_in">len</span>(s1), <span class="built_in">cap</span>(s1))</span><br><span class="line">	<span class="comment">//s2=[5 6], len(s2)=2 ,cap(s2)=3</span></span><br><span class="line">	fmt.Printf(<span class="string">"s2=%v, len(s2)=%d ,cap(s2)=%d\n"</span>, s2, <span class="built_in">len</span>(s2), <span class="built_in">cap</span>(s2))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>向slice添加元素</strong><br>我们可以使用<code>append()</code>向slice添加元素，因为值传递的关系，必须接收<code>append()</code>返回的值。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	arr1 := [...]<span class="keyword">int</span>&#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>&#125;</span><br><span class="line">	s1 := arr1[<span class="number">2</span>:<span class="number">6</span>]</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// s2 = [5 6]</span></span><br><span class="line">	s2 := s1[<span class="number">3</span>:<span class="number">5</span>]</span><br><span class="line"></span><br><span class="line">	<span class="comment">// s3 = [5 6 10]</span></span><br><span class="line">	s3 := <span class="built_in">append</span>(s2, <span class="number">10</span>)</span><br><span class="line">	<span class="comment">// s4 = [5 6 10 11]</span></span><br><span class="line">	s4 := <span class="built_in">append</span>(s3, <span class="number">11</span>)</span><br><span class="line">	<span class="comment">// s5 = [5 6 10 11 12]</span></span><br><span class="line">	s5 := <span class="built_in">append</span>(s4, <span class="number">12</span>)</span><br><span class="line"></span><br><span class="line">	fmt.Println(s3, s4, s5)</span><br><span class="line"></span><br><span class="line">	<span class="comment">// arr = [0 1 2 3 4 5 6 10]</span></span><br><span class="line">	fmt.Println(arr)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如上代码我们看到，s3是在s2的基础上添加了元素10，此时还没有超出s2的cap，所以s3还是对arr1的view，并且arr1的最后1个元素从7变为了10</p>
+<p>但s4显然超出了s3的cap，s4会重新开辟一块连续的内存(数组)，内存容量会是arr1的二倍，然后将s3复制到新的数组中，再进行append操作。</p>
+<p><strong>创建slice</strong><br>使用var定义1个slice，此时slice的zero value为nil<br>下面代码我们向s插入100个数，s的初始化cap与len为0，但随着len==cap但继续向s插入元素，cap会扩充为之前的2倍形成新的数组，s会进行元素的复制以及ptr的指向。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> s []<span class="keyword">int</span> <span class="comment">//zero value for slice is nil</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="number">100</span>; i++ &#123;</span><br><span class="line">		printSlice(s)</span><br><span class="line">		s = <span class="built_in">append</span>(s, <span class="number">2</span>*i+<span class="number">1</span>)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	fmt.Println(s)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面创建slice的方式很简单，但是由于数组的动态创建、扩充，会比较消耗性能。如果我们提前知道数组的大致cap，可以使用<code>make()</code>创建一个比较大的slice。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	s1 := <span class="built_in">make</span>([]<span class="keyword">int</span>, <span class="number">16</span>, <span class="number">16</span>)</span><br><span class="line">	<span class="comment">//[0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0],len=16,cap=16</span></span><br><span class="line">	fmt.Printf(<span class="string">"%v,len=%d,cap=%d\n"</span>, s1, <span class="built_in">len</span>(s1), <span class="built_in">cap</span>(s1))</span><br><span class="line"></span><br><span class="line">	s2 := <span class="built_in">make</span>([]<span class="keyword">int</span>, <span class="number">10</span>, <span class="number">32</span>)</span><br><span class="line">	<span class="comment">//[0 0 0 0 0 0 0 0 0 0],len=10,cap=32</span></span><br><span class="line">	fmt.Printf(<span class="string">"%v,len=%d,cap=%d\n"</span>, s2, <span class="built_in">len</span>(s2), <span class="built_in">cap</span>(s2))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>copy slice</strong><br>使用<code>copy()</code>可以进行slice的copy</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	s0 := []<span class="keyword">int</span>&#123;<span class="number">2</span>, <span class="number">4</span>, <span class="number">6</span>, <span class="number">8</span>&#125;</span><br><span class="line">	s1 := <span class="built_in">make</span>([]<span class="keyword">int</span>, <span class="number">16</span>, <span class="number">16</span>)</span><br><span class="line">	<span class="built_in">copy</span>(s1, s0)</span><br><span class="line">	<span class="comment">//[2 4 6 8 0 0 0 0 0 0 0 0 0 0 0 0],len=16,cap=16</span></span><br><span class="line">	fmt.Printf(<span class="string">"%v,len=%d,cap=%d\n"</span>, s1, <span class="built_in">len</span>(s1), <span class="built_in">cap</span>(s1))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>delete slice</strong><br>go中没有删除slice元素的内建函数，我们可以使用<code>append()</code></p>
+<ol>
+<li>对被删除元素的前面元素切片执行<code>append()</code></li>
+<li>append内容为被删除元素的后面元素的内容，需要使用”…”</li>
+</ol>
+<p>比如我们要删除元素6</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">func main() &#123;</span><br><span class="line">	s0 :&#x3D; []int&#123;2, 4, 6, 8&#125;</span><br><span class="line">	s1 :&#x3D; make([]int, 16, 16)</span><br><span class="line">	copy(s1, s0)</span><br><span class="line">	&#x2F;&#x2F;[2 4 6 8 0 0 0 0 0 0 0 0 0 0 0 0],len&#x3D;16,cap&#x3D;16</span><br><span class="line">	fmt.Printf(&quot;%v,len&#x3D;%d,cap&#x3D;%d\n&quot;, s1, len(s1), cap(s1))</span><br><span class="line"></span><br><span class="line">	&#x2F;&#x2F;[2 4 8 0 0 0 0 0 0 0 0 0 0 0 0],len&#x3D;15,cap&#x3D;16</span><br><span class="line">	s1 &#x3D; append(s1[:2], s1[3:]...) &#x2F;&#x2F;s1是reslice</span><br><span class="line">	fmt.Printf(&quot;%v,len&#x3D;%d,cap&#x3D;%d\n&quot;, s1, len(s1), cap(s1))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="三-Map"><a href="#三-Map" class="headerlink" title="三. Map"></a>三. Map</h2><p><strong>map的定义</strong><br>map定位为<code>map[k]v</code>的形式，可以使用make创建，或其他方式创建。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="comment">//m0 = nil</span></span><br><span class="line">	<span class="keyword">var</span> m0 <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">string</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">//m1 = map[course:golang name:eric quality:good]</span></span><br><span class="line">	m1 := <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">string</span>&#123;</span><br><span class="line">		<span class="string">"name"</span>:    <span class="string">"eric"</span>,</span><br><span class="line">		<span class="string">"course"</span>:  <span class="string">"golang"</span>,</span><br><span class="line">		<span class="string">"quality"</span>: <span class="string">"good"</span>,</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//m2 = map[]</span></span><br><span class="line">	m2 := <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">string</span>)</span><br><span class="line"></span><br><span class="line">	fmt.Println(m0, m1, m2)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>map的遍历</strong><br>map使用range进行遍历</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="comment">//m1 = map[course:golang name:eric quality:good]</span></span><br><span class="line">	m1 := <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">string</span>&#123;</span><br><span class="line">		<span class="string">"name"</span>:    <span class="string">"eric"</span>,</span><br><span class="line">		<span class="string">"course"</span>:  <span class="string">"golang"</span>,</span><br><span class="line">		<span class="string">"quality"</span>: <span class="string">"good"</span>,</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//k,v遍历</span></span><br><span class="line">	<span class="keyword">for</span> k, v := <span class="keyword">range</span> m1 &#123;</span><br><span class="line">		fmt.Println(k, v)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//只有k的遍历</span></span><br><span class="line">	<span class="keyword">for</span> k := <span class="keyword">range</span> m1 &#123;</span><br><span class="line">		fmt.Println(k)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>map的遍历是无序的(k,v无序)，第一次与第二次遍历顺序可能不一样。</p>
+<p><strong>获取map元素</strong><br>对于不存在的key，获取的元素为zeroValue，不会报错。<br>我们通常状态码来判断key是否存在，存在的话获取正确value</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="comment">//m1 = map[course:golang name:eric quality:good]</span></span><br><span class="line">	m1 := <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">string</span>&#123;</span><br><span class="line">		<span class="string">"name"</span>:    <span class="string">"eric"</span>,</span><br><span class="line">		<span class="string">"course"</span>:  <span class="string">"golang"</span>,</span><br><span class="line">		<span class="string">"quality"</span>: <span class="string">"good"</span>,</span><br><span class="line">	&#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//通过ok来判断</span></span><br><span class="line">	<span class="keyword">if</span> course, ok := m1[<span class="string">"course"</span>]; ok &#123;</span><br><span class="line">		fmt.Println(course)</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		fmt.Println(<span class="string">"key does not exist"</span>)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>删除元素</strong><br>使用<code>delete()</code>函数删除，如下删除map中key=name的元素</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="comment">//m1 = map[course:golang name:eric quality:good]</span></span><br><span class="line">	m1 := <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">string</span>&#123;</span><br><span class="line">		<span class="string">"name"</span>:    <span class="string">"eric"</span>,</span><br><span class="line">		<span class="string">"course"</span>:  <span class="string">"golang"</span>,</span><br><span class="line">		<span class="string">"quality"</span>: <span class="string">"good"</span>,</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//删除name值</span></span><br><span class="line">	<span class="built_in">delete</span>(m1, <span class="string">"name"</span>)</span><br><span class="line"></span><br><span class="line">	<span class="comment">//map[course:golang quality:good]</span></span><br><span class="line">	fmt.Println(m1)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="四-字符串-String"><a href="#四-字符串-String" class="headerlink" title="四. 字符串(String)"></a>四. 字符串(String)</h2><p>字符串的默认值是””，不是nil</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>  &#123;</span><br><span class="line">	<span class="keyword">var</span> s <span class="keyword">string</span></span><br><span class="line">	<span class="comment">//true</span></span><br><span class="line">	<span class="built_in">println</span>(s==<span class="string">""</span>)</span><br><span class="line">	<span class="comment">//错误</span></span><br><span class="line">	<span class="built_in">println</span>(s==<span class="literal">nil</span>)</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用命令执行符”`”可以定义不做转义处理的原始字符串(格式保留)</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>  &#123;</span><br><span class="line">	s:=<span class="string">`line\r\n,</span></span><br><span class="line"><span class="string">line 2`</span></span><br><span class="line">	<span class="built_in">println</span>(s)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">line\r\n,</span><br><span class="line">line <span class="number">2</span></span><br></pre></td></tr></table></figure>
+
+<p>字符串使用”+”连接</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;跨行时，&quot;+&quot;必须在上一行结尾</span><br><span class="line">s:&#x3D;&quot;ab&quot;+</span><br><span class="line">   &quot;cd&quot;</span><br></pre></td></tr></table></figure>
+
+<p><strong>字节数组</strong><br>GO允许以索引号访问字节数组(数字非字符)，但不能获取元素地址</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>  &#123;</span><br><span class="line">	s:=<span class="string">"abcd"</span></span><br><span class="line">	<span class="comment">//输出98，即b</span></span><br><span class="line">	<span class="built_in">println</span>(s[<span class="number">1</span>])</span><br><span class="line">	<span class="comment">//报错</span></span><br><span class="line">	<span class="built_in">println</span>(&amp;s[<span class="number">1</span>])</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>以切片方式访问字节数组，其内部还是指向原字节数组，只是len不同</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">func main()  &#123;</span><br><span class="line">	s:&#x3D;&quot;abcde&quot;</span><br><span class="line">	&#x2F;&#x2F;abc</span><br><span class="line">	s1:&#x3D;s[:3]</span><br><span class="line"></span><br><span class="line">	&#x2F;&#x2F;bcd</span><br><span class="line">	s2:&#x3D;s[1:4]</span><br><span class="line"></span><br><span class="line">	&#x2F;&#x2F;cde</span><br><span class="line">	s3:&#x3D;s[2:]</span><br><span class="line"></span><br><span class="line">	println(s1,s2,s3)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如上，s与s1、s2、s3指向的内存地址相同，但len不同。</p>
+<p><strong>遍历字符串</strong><br>遍历字符串分2种情况：byte、rune</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	s := <span class="string">"Yes我爱中国"</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">//byte方式遍历 会出现乱码</span></span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="built_in">len</span>(s); i++ &#123;</span><br><span class="line">		<span class="comment">//(0 Y)(1 e)(2 s)(3 æ)(4 )(5 )(6 ç)(7 )(8 ±)(9 ä)(10 ¸)(11 ­)(12 å)(13 )(14 ½)</span></span><br><span class="line">		fmt.Printf(<span class="string">"(%d %c)"</span>, i, s[i])</span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Println()</span><br><span class="line"></span><br><span class="line">	<span class="comment">//默认rune方式，但是i是字节的开始位置</span></span><br><span class="line">	<span class="keyword">for</span> i, v := <span class="keyword">range</span> s &#123;</span><br><span class="line">		<span class="comment">//(0 Y)(1 e)(2 s)(3 我)(6 爱)(9 中)(12 国)</span></span><br><span class="line">		fmt.Printf(<span class="string">"(%d %c)"</span>, i, v)</span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Println()</span><br><span class="line"></span><br><span class="line">	<span class="comment">//将s转换为rune切片的方式(重新开辟了rune数组存储字符)，i就是第几个字符了</span></span><br><span class="line">	<span class="keyword">for</span> i, v := <span class="keyword">range</span> []<span class="keyword">rune</span>(s) &#123;</span><br><span class="line">		<span class="comment">//(0 Y)(1 e)(2 s)(3 我)(4 爱)(5 中)(6 国)</span></span><br><span class="line">		fmt.Printf(<span class="string">"(%d %c)"</span>, i, v)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0</span>: ä</span><br><span class="line"><span class="number">1</span>: ¸</span><br><span class="line"><span class="number">2</span>: ­</span><br><span class="line"><span class="number">3</span>: å</span><br><span class="line"><span class="number">4</span>: </span><br><span class="line"><span class="number">5</span>: ½</span><br><span class="line"><span class="number">0</span>: 中</span><br><span class="line"><span class="number">3</span>: 国</span><br></pre></td></tr></table></figure>
+
+<p><strong>性能问题</strong><br>用+进行字符串拼接时，每次都得重新分配内存。当然一两次的字符串连接没有问题，但在构建超大字符串时性能就很差了。</p>
+<p>每次都分配内存</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">BenchmarkTest</span><span class="params">(b *testing.B)</span></span>  &#123;</span><br><span class="line">	<span class="keyword">var</span> s <span class="keyword">string</span></span><br><span class="line">	<span class="keyword">for</span> i:=<span class="number">0</span>;i&lt;b.N;i++&#123;</span><br><span class="line">		s+=<span class="string">"a"</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>测试结果：每次操作需要53839纳秒</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">BenchmarkTest<span class="number">-4</span>   	  <span class="number">873931</span>	     <span class="number">53839</span> ns/op</span><br></pre></td></tr></table></figure>
+
+<p>改进：提前预分配一块大slice内存，最后再join</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">BenchmarkTest</span><span class="params">(b *testing.B)</span></span>  &#123;</span><br><span class="line">	s:=<span class="built_in">make</span>([]<span class="keyword">string</span>,<span class="number">100000</span>)</span><br><span class="line">	<span class="keyword">for</span> i:=<span class="number">0</span>;i&lt;b.N;i++&#123;</span><br><span class="line">		s=<span class="built_in">append</span>(s,<span class="string">"a"</span>)</span><br><span class="line">	&#125;</span><br><span class="line">	strings.Join(s,<span class="string">""</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>测试结果：每次操作需要146纳秒</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">BenchmarkTest<span class="number">-4</span>   	 <span class="number">8978041</span>	       <span class="number">146</span> ns/op</span><br></pre></td></tr></table></figure>
+
+<p><strong>rune</strong><br>rune专门用来存储Unicode，使用单引号的字面量，默认是rune类型。</p>
+<p>标准库Unicode提供了丰富的操作函数，比如使用代替len返回准确的Unicode字符梳理。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>  &#123;</span><br><span class="line">	s:=<span class="string">"中国!"</span></span><br><span class="line">	<span class="built_in">println</span>(<span class="built_in">len</span>(s),utf8.RuneCountInString(s))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">7</span> <span class="number">3</span></span><br></pre></td></tr></table></figure>
+
+
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/05/31/golang_functions/" rel="next" title="三. Golang中的函数">
+                <i class="fa fa-chevron-left"></i> 三. Golang中的函数
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80OTk1OC8yNjQ0OQ=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zilu</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
